@@ -44,8 +44,6 @@ export default class CliManager {
   }
 
   parseCliParams() {
-    console.log(this.params);
-
     if (this.params.length <= 2) {
       throw new Error("No toraget URL");
     }
