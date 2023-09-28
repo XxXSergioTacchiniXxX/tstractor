@@ -13,6 +13,6 @@ This project supports the [Bun](https://bun.sh/) and [Deno](https://deno.com/) r
 ```npm run start:bun https://stackoverflow.com/ -- -l```
 
 ## Params
-`-o` - Output in file. After it, you need to specify the path for the file;
-`-l` - Print logs;
-`-t` - Target url for collection.
+* `-o` - Output in file. After it, you need to specify the path for the file;
+* `-l` - Print logs;
+* `-t` - Target url for collection.
