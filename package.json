@@ -1,0 +1,19 @@
+{
+  "name": "laguska",
+  "module": "index.ts",
+  "type": "module",
+  "main": "index.ts",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "scripts": {
+    "start:bun": "bun run ./src/index.ts",
+    "start:deno": "deno run --allow-all ./src/index.ts --"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "node-html-parser": "^6.1.10"
+  }
+}
