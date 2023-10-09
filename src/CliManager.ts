@@ -16,15 +16,7 @@ export default class CliManager {
   isNeedLog: boolean = false;
 
   constructor() {
-    // @ts-ignore
-    if (RuntimeManager.runtime === RuntimeTypes.Deno) {
-      // @ts-ignore
-      this.params = Deno?.args;
-    }
-    if (RuntimeManager.runtime === RuntimeTypes.Bun) {
-      // @ts-ignore
-      this.params = process.argv;
-    }
+    this.params = RuntimeManager.runtimeApi.getCliParams();
 
     this.normolizeParams();
     this.parseCliParams();
@@ -40,7 +32,7 @@ export default class CliManager {
 
   parseCliParams() {
     if (this.params.length <= 2) {
-      throw new Error("No toraget URL");
+      throw new Error("No target URL");
     }
 
     if (!this.params.includes(Keys.Target)) {
