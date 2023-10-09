@@ -1,7 +1,7 @@
-import { Manager } from "./Manager.ts";
-import { LinkExtractor } from "./LinkExtractor.ts";
-import { LinkFilter } from "./LinkFilter.ts";
-import { LinkPrepare } from "./LinkPrepare.ts";
+import { Manager } from "./SearchManager.ts";
+import { LinkExtractor } from "./LinkTools/LinkExtractor.ts";
+import { LinkFilter } from "./LinkTools/LinkFilter.ts";
+import { LinkPrepare } from "./LinkTools/LinkPrepare.ts";
 
 export class RequestUnit {
   manager: Manager;
@@ -23,7 +23,7 @@ export class RequestUnit {
       if (this.manager.isEnd()) {
         return;
       }
-      setTimeout(() => this.iter(), 500);
+      setTimeout(() => this.iter(), 300);
       return;
     }
 

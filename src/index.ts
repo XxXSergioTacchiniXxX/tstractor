@@ -1,7 +1,7 @@
 import CliManager from "./CliManager.ts";
-import { FileManager } from "./FileManager.ts";
-import { Manager } from "./Manager.ts";
-import { RequestUnit } from "./RequestUnit.ts";
+import FileManager from "./FileManager.ts";
+import { Manager } from "./Core/SearchManager.ts";
+import { RequestUnit } from "./Core/RequestUnit.ts";
 import {
   INTERVAL_DELAY_LOG,
   INTERVAL_DELAY_NO_LOG,
@@ -10,6 +10,7 @@ import {
 
 (async function() {
   const cliManager = new CliManager();
+  const fileManager = new FileManager();
 
   const manager = new Manager([cliManager.url]);
   const unitPull = [];
@@ -42,7 +43,7 @@ import {
 
     function onEnd() {
       if (cliManager.isNeedOutFile) {
-        FileManager.writeToFileByPath(
+        fileManager.write(
           cliManager.pathToOutFile,
           manager.getLinkListInText(),
         );

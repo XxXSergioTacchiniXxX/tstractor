@@ -16,12 +16,17 @@ export class LinkPrepare {
   }
 
   completeToFullPath(): LinkPrepare {
-    const isFullLink = this._link.includes("https://");
+    const isFullHTTPSLink = this._link.includes("https://");
     const isFullHTTPLink = this._link.includes(`http://`);
     const isRelative = this._link.includes("../");
+    const isHaveEndSlach = this._link.endsWith("/");
     const isHaveStartSlach = this._link.startsWith("/");
 
-    if (!isFullHTTPLink && !isFullLink && !isHaveStartSlach) {
+    if (!isHaveEndSlach) {
+      this._link += "/";
+    }
+
+    if (!isFullHTTPLink && !isFullHTTPSLink && !isHaveStartSlach) {
       this._link = `/${this._link}`;
     }
 
@@ -29,7 +34,7 @@ export class LinkPrepare {
       this._link = this._link.replaceAll("../", "");
     }
 
-    if (!isFullLink && !isFullHTTPLink) {
+    if (!isFullHTTPSLink && !isFullHTTPLink) {
       this._link = `${this.baseURL.origin}${this._link}`;
     }
 
@@ -39,6 +44,7 @@ export class LinkPrepare {
   removeGetParams(): LinkPrepare {
     const url = new URL(this._link);
     this._link = `${url.origin}${url.pathname}`;
+
     return this;
   }
 }

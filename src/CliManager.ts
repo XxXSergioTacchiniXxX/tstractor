@@ -1,12 +1,9 @@
+import RuntimeManager, { RuntimeTypes } from "./RuntimeManager.ts";
+
 enum Keys {
   Target = "-t",
   Out = "-o",
   Log = "-l",
-}
-
-export enum RunTime {
-  Deno,
-  Bun,
 }
 
 export default class CliManager {
@@ -18,15 +15,13 @@ export default class CliManager {
 
   isNeedLog: boolean = false;
 
-  static readonly runTime: RunTime = this.defineRunTime();
-
   constructor() {
     // @ts-ignore
-    if (CliManager.runTime === RunTime.Deno) {
+    if (RuntimeManager.runtime === RuntimeTypes.Deno) {
       // @ts-ignore
       this.params = Deno?.args;
     }
-    if (CliManager.runTime === RunTime.Bun) {
+    if (RuntimeManager.runtime === RuntimeTypes.Bun) {
       // @ts-ignore
       this.params = process.argv;
     }
@@ -38,7 +33,7 @@ export default class CliManager {
   normolizeParams() {
     // This is done so that, by default, the parameters passed in all runtimes start with 2 indexes.
 
-    if (CliManager.runTime === RunTime.Deno) {
+    if (RuntimeManager.runtime === RuntimeTypes.Deno) {
       this.params = ["Deno", ...this.params];
     }
   }
@@ -85,19 +80,5 @@ export default class CliManager {
     if (!param) return false;
     if (param.startsWith("-")) return false;
     return true;
-  }
-
-  static defineRunTime(): RunTime {
-    // @ts-ignore
-    if (globalThis?.Deno) {
-      // @ts-ignore
-      return RunTime.Deno;
-    }
-    if (globalThis?.Bun) {
-      // @ts-ignore
-      return RunTime.Bun;
-    }
-
-    throw new Error("Undefined runtime");
   }
 }
