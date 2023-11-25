@@ -1,9 +1,11 @@
 import RuntimeManager, { RuntimeTypes } from "./RuntimeManager.ts";
+import helpText from "./helpText.ts";
 
 enum Keys {
   Target = "-t",
   Out = "-o",
   Log = "-l",
+  Help = "--help",
 }
 
 export default class CliManager {
@@ -53,7 +55,7 @@ export default class CliManager {
             i += 1;
           } else {
             throw new Error(
-              `Bad param for ${param} key. Param is ${nextParam}`,
+              `Bad param for ${param} key. Param is ${nextParam}`
             );
           }
           break;
@@ -64,13 +66,15 @@ export default class CliManager {
             i += 1;
           }
           break;
+        case Keys.Help:
+          console.log(helpText);
       }
     }
   }
 
   checkValidValueInParam(param: string | undefined): boolean {
     if (!param) return false;
-    if (param.startsWith("-")) return false;
+    if (param.startsWith("-") || param.startsWith("--")) return false;
     return true;
   }
 }
